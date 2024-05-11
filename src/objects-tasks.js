@@ -36,20 +36,15 @@ function shallowCopy(obj) {
  *    mergeObjects([]) => {}
  */
 function mergeObjects(objects) {
-  let concatObj = [];
-  const res = {};
-  for (let i = 0; i < objects.length; i += 1) {
-    concatObj = concatObj.concat(Object.entries(objects[i]));
-  }
-  for (let i = 0; i < concatObj.length; i += 1) {
-    if (concatObj[i][0] in res) {
-      res[concatObj[i][0]] += concatObj[i][1];
-    } else {
-      const [key, value] = concatObj[i];
-      res[key] = value;
-    }
-  }
-  return res;
+  const result = {};
+
+  objects.forEach((elem) => {
+    Object.entries(elem).forEach(([key, value]) => {
+      result[key] = result[key] ? result[key] + value : value;
+    });
+  });
+
+  return result;
 }
 
 /**
